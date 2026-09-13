@@ -1,0 +1,68 @@
+---
+import { getCategories, getSite } from '../lib/tools';
+
+const site = getSite();
+const categories = getCategories();
+const path = Astro.url.pathname;
+---
+
+<header class="sticky top-0 z-40 border-b border-line/70 bg-surface/80 backdrop-blur-md">
+  <div class="mx-auto flex max-w-6xl items-center justify-between gap-6 px-5 py-4 md:px-8">
+    <a href="/" class="group min-w-0 no-underline">
+      <span class="font-display block text-[1.35rem] leading-none tracking-tight text-ink transition group-hover:text-accent md:text-[1.55rem]">
+        {site.name}
+      </span>
+      <span class="mt-1 block text-[0.7rem] font-medium tracking-[0.18em] text-muted uppercase">
+        {site.nameEn}
+      </span>
+    </a>
+
+    <nav class="hidden items-center gap-1 md:flex" aria-label="主导航">
+      <a
+        href="/#tools"
+        class:list={[
+          'rounded-md px-3 py-2 text-sm transition hover:bg-accent-soft/60 hover:text-accent-deep',
+          path === '/' ? 'text-accent-deep' : 'text-ink-soft',
+        ]}
+      >
+        工具目录
+      </a>
+      {
+        categories.map((category) => (
+          <a
+            href={`/#${category.id}`}
+            class="rounded-md px-3 py-2 text-sm text-ink-soft transition hover:bg-accent-soft/60 hover:text-accent-deep"
+          >
+            {category.name}
+          </a>
+        ))
+      }
+      <a
+        href="/about"
+        class:list={[
+          'rounded-md px-3 py-2 text-sm transition hover:bg-accent-soft/60 hover:text-accent-deep',
+          path.startsWith('/about') ? 'text-accent-deep' : 'text-ink-soft',
+        ]}
+      >
+        关于
+      </a>
+    </nav>
+
+    <details class="relative md:hidden">
+      <summary class="cursor-pointer list-none rounded-md border border-line bg-surface px-3 py-2 text-sm text-ink-soft">
+        菜单
+      </summary>
+      <div class="absolute right-0 mt-2 w-48 rounded-lg border border-line bg-surface p-2 shadow-lg">
+        <a href="/#tools" class="block rounded-md px-3 py-2 text-sm no-underline hover:bg-accent-soft/60">工具目录</a>
+        {
+          categories.map((category) => (
+            <a href={`/#${category.id}`} class="block rounded-md px-3 py-2 text-sm no-underline hover:bg-accent-soft/60">
+              {category.name}
+            </a>
+          ))
+        }
+        <a href="/about" class="block rounded-md px-3 py-2 text-sm no-underline hover:bg-accent-soft/60">关于</a>
+      </div>
+    </details>
+  </div>
+</header>

@@ -1,0 +1,15 @@
+- id: development
+  name: 软件开发
+  description: 编码、脚手架、API 与日常开发效率工具。
+- id: testing
+  name: 软件测试
+  description: 单元、集成、端到端与质量门禁相关能力。
+- id: cicd
+  name: CI/CD
+  description: 构建、流水线、自动化与持续集成交付。
+- id: release
+  name: 发布
+  description: 版本管理、制品分发、灰度与发布编排。
+- id: ai
+  name: AI 工程
+  description: Prompt、Agent、评测与模型工程相关工具。
