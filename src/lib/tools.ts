@@ -1,8 +1,8 @@
-import { readFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 import { z } from 'zod';
+import categoriesYaml from '../data/categories.yaml?raw';
+import siteYaml from '../data/site.yaml?raw';
+import toolsYaml from '../data/tools.yaml?raw';
 import {
   categorySchema,
   siteSchema,
@@ -12,22 +12,16 @@ import {
   type Tool,
 } from './schema';
 
-const dataDir = join(dirname(fileURLToPath(import.meta.url)), '../data');
-
-function loadYaml(filename: string): unknown {
-  return parse(readFileSync(join(dataDir, filename), 'utf8'));
-}
-
 export function getSite(): Site {
-  return siteSchema.parse(loadYaml('site.yaml'));
+  return siteSchema.parse(parse(siteYaml));
 }
 
 export function getCategories(): Category[] {
-  return z.array(categorySchema).parse(loadYaml('categories.yaml'));
+  return z.array(categorySchema).parse(parse(categoriesYaml));
 }
 
 export function getTools(): Tool[] {
-  const tools = z.array(toolSchema).parse(loadYaml('tools.yaml'));
+  const tools = z.array(toolSchema).parse(parse(toolsYaml));
   const categoryIds = new Set(getCategories().map((c) => c.id));
   const slugs = new Set<string>();
 

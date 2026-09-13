@@ -1,0 +1,40 @@
+---
+import type { Category, Tool } from '../lib/schema';
+import ToolRow from './ToolRow.astro';
+
+interface Props {
+  category: Category;
+  tools: Tool[];
+  index: number;
+}
+
+const { category, tools, index } = Astro.props;
+const delayClass =
+  index % 3 === 0 ? 'reveal' : index % 3 === 1 ? 'reveal reveal-delay-1' : 'reveal reveal-delay-2';
+---
+
+<section id={category.id} class:list={['scroll-mt-28', delayClass]}>
+  <div class="mb-5 flex flex-col gap-2 border-b border-ink/15 pb-4 md:flex-row md:items-end md:justify-between">
+    <div>
+      <p class="text-xs font-medium tracking-[0.2em] text-accent uppercase">
+        {String(index + 1).padStart(2, '0')}
+      </p>
+      <h2 class="font-display mt-1 text-2xl tracking-tight text-ink md:text-3xl">
+        {category.name}
+      </h2>
+    </div>
+    <p class="max-w-md text-sm leading-relaxed text-muted">{category.description}</p>
+  </div>
+
+  {
+    tools.length === 0 ? (
+      <p class="py-6 text-sm text-muted">该分类暂无工具。</p>
+    ) : (
+      <div class="surface-grid rounded-xl border border-line/70 bg-surface/55 px-4 md:px-5">
+        {tools.map((tool) => (
+          <ToolRow tool={tool} />
+        ))}
+      </div>
+    )
+  }
+</section>

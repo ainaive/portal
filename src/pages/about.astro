@@ -1,0 +1,61 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCategories, getSite, getTools } from '../lib/tools';
+
+const site = getSite();
+const categories = getCategories();
+const tools = getTools();
+---
+
+<BaseLayout title="关于" description={`了解 ${site.name} 的定位与原则。`}>
+  <article class="mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16">
+    <p class="reveal text-xs font-medium tracking-[0.22em] text-accent uppercase">About</p>
+    <h1 class="font-display reveal reveal-delay-1 mt-3 text-4xl tracking-tight text-ink md:text-5xl">
+      关于{site.name}
+    </h1>
+    <p class="reveal reveal-delay-2 mt-6 text-lg leading-relaxed text-ink-soft">
+      {site.name}（{site.nameEn}）是一套面向软件工程的工具目录。我们把开发、测试、CI/CD、发布与 AI 工程中常用的能力放在同一处，方便团队发现、比较与接入。
+    </p>
+
+    <section class="reveal reveal-delay-3 mt-14">
+      <h2 class="font-display text-2xl text-ink">我们在意什么</h2>
+      <ul class="mt-6 space-y-5 text-base leading-relaxed text-ink-soft">
+        <li class="border-l-2 border-accent/50 pl-4">
+          <strong class="font-medium text-ink">可扫读</strong>
+          — 先看清分类与摘要，再决定是否深入详情。
+        </li>
+        <li class="border-l-2 border-accent/50 pl-4">
+          <strong class="font-medium text-ink">可演进</strong>
+          — 第一阶段用仓库内 YAML 维护；字段结构已按后续后台管理预留。
+        </li>
+        <li class="border-l-2 border-accent/50 pl-4">
+          <strong class="font-medium text-ink">务实混合</strong>
+          — 既有传统工程工具，也有 AI 工程能力，服务真实交付链路。
+        </li>
+      </ul>
+    </section>
+
+    <section class="mt-14 rounded-xl border border-line bg-surface/70 p-6 md:p-8">
+      <h2 class="font-display text-2xl text-ink">当前目录</h2>
+      <p class="mt-3 text-sm text-muted">
+        现收录 {tools.length} 个占位工具，分布在 {categories.length} 个分类中。正式上线时替换为真实条目即可。
+      </p>
+      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+        {
+          categories.map((category) => (
+            <li class="rounded-lg border border-line/80 bg-paper/50 px-4 py-3">
+              <a href={`/#${category.id}`} class="font-medium text-ink no-underline hover:text-accent-deep">
+                {category.name}
+              </a>
+              <p class="mt-1 text-sm text-muted">{category.description}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+
+    <p class="mt-12 text-sm text-muted">
+      <a href="/" class="text-accent hover:text-accent-deep">返回工具目录</a>
+    </p>
+  </article>
+</BaseLayout>

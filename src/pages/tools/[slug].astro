@@ -1,0 +1,114 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { statusLabel } from '../../lib/labels';
+import { getCategories, getToolBySlug, getTools } from '../../lib/tools';
+
+export function getStaticPaths() {
+  return getTools().map((tool) => ({
+    params: { slug: tool.slug },
+  }));
+}
+
+const { slug } = Astro.params;
+const tool = getToolBySlug(slug!);
+
+if (!tool) {
+  throw new Error(`Tool not found: ${slug}`);
+}
+
+const category = getCategories().find((item) => item.id === tool.category);
+const linkEntries = [
+  tool.links.website ? { label: '官网', href: tool.links.website } : null,
+  tool.links.github ? { label: 'GitHub', href: tool.links.github } : null,
+  tool.links.docs ? { label: '文档', href: tool.links.docs } : null,
+].filter(Boolean) as { label: string; href: string }[];
+---
+
+<BaseLayout title={tool.name} description={tool.summary}>
+  <article class="mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16">
+    <p class="reveal text-sm text-muted">
+      <a href="/" class="no-underline hover:text-accent-deep">工具目录</a>
+      <span class="mx-2 opacity-50">/</span>
+      {
+        category && (
+          <a href={`/#${category.id}`} class="no-underline hover:text-accent-deep">
+            {category.name}
+          </a>
+        )
+      }
+    </p>
+
+    <div class="reveal reveal-delay-1 mt-6 flex flex-wrap items-center gap-3">
+      <h1 class="font-display text-4xl tracking-tight text-ink md:text-5xl">{tool.name}</h1>
+      <span
+        class:list={[
+          'rounded-full px-2.5 py-1 text-xs font-medium',
+          tool.status === 'stable' && 'bg-accent-soft text-accent-deep',
+          tool.status === 'beta' && 'bg-paper-deep text-ink-soft',
+          tool.status === 'experimental' && 'bg-[#f3e7d6] text-warn',
+        ]}
+      >
+        {statusLabel[tool.status]}
+      </span>
+    </div>
+
+    <p class="reveal reveal-delay-2 mt-5 text-lg leading-relaxed text-ink-soft">{tool.summary}</p>
+
+    {
+      tool.tags.length > 0 && (
+        <ul class="reveal reveal-delay-2 mt-5 flex flex-wrap gap-2">
+          {tool.tags.map((tag) => (
+            <li class="rounded-full border border-line bg-surface px-3 py-1 text-xs text-muted">{tag}</li>
+          ))}
+        </ul>
+      )
+    }
+
+    <section class="reveal reveal-delay-3 mt-12 border-t border-line pt-10">
+      <h2 class="font-display text-2xl text-ink">介绍</h2>
+      <p class="mt-4 text-base leading-relaxed text-ink-soft">{tool.description}</p>
+    </section>
+
+    {
+      tool.highlights.length > 0 && (
+        <section class="mt-12">
+          <h2 class="font-display text-2xl text-ink">要点</h2>
+          <ul class="mt-5 space-y-3">
+            {tool.highlights.map((item) => (
+              <li class="flex gap-3 text-ink-soft">
+                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      linkEntries.length > 0 && (
+        <section class="mt-12 rounded-xl border border-line bg-surface/70 p-6">
+          <h2 class="font-display text-xl text-ink">链接</h2>
+          <ul class="mt-4 flex flex-wrap gap-3">
+            {linkEntries.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="inline-flex rounded-full border border-accent/30 bg-accent-soft/50 px-4 py-2 text-sm font-medium text-accent-deep no-underline transition hover:bg-accent-soft"
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <p class="mt-12 text-sm text-muted">
+      <a href="/" class="text-accent hover:text-accent-deep">← 返回目录</a>
+    </p>
+  </article>
+</BaseLayout>
