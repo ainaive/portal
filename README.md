@@ -20,15 +20,15 @@ bun run preview  # 预览静态产物
 
 ## 内容维护
 
-工具与分类均为仓库内 YAML，构建时经 Zod 校验：
+工具与分类写在 `src/data/*.yaml`，构建时经 Zod 校验。
+
+**如何新增、修改工具或分类** → 见 [`docs/content.md`](docs/content.md)（含字段说明、示例与常见注意点）。
 
 | 文件 | 说明 |
 |------|------|
 | [`src/data/site.yaml`](src/data/site.yaml) | 站点名称、标语 |
 | [`src/data/categories.yaml`](src/data/categories.yaml) | 分类顺序与文案 |
 | [`src/data/tools.yaml`](src/data/tools.yaml) | 工具条目 |
-
-新增工具：在 `tools.yaml` 追加一条（`slug`、`category` 等），重新 build 即可。字段定义见 [`src/lib/schema.ts`](src/lib/schema.ts)。
 
 当前分类顺序：软件开发 → 软件测试 → CI/CD（含构建）→ 发布 → AI 工程。
 
