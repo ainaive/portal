@@ -1,0 +1,49 @@
+---
+import type { Tool } from '../lib/schema';
+import { getCategoryTheme } from '../lib/theme';
+import AccessBadge from './AccessBadge.astro';
+
+interface Props {
+  tool: Tool;
+}
+
+const { tool } = Astro.props;
+const theme = getCategoryTheme(tool.category);
+const mark = tool.name.slice(0, 1);
+---
+
+<a
+  href={`/tools/${tool.slug}`}
+  class:list={[
+    'card-lift group flex h-full flex-col rounded-2xl border border-line/80 bg-surface p-5 no-underline md:p-6',
+    theme.hoverBorder,
+  ]}
+>
+  <div class="flex items-start gap-3">
+    <span
+      class:list={[
+        'font-display flex h-10 w-10 shrink-0 items-center justify-center rounded-xl text-lg',
+        theme.mark,
+      ]}
+      aria-hidden="true"
+    >
+      {mark}
+    </span>
+    <div class="min-w-0 flex-1">
+      <div class="flex flex-wrap items-center gap-2">
+        <h3 class="text-base font-semibold tracking-tight text-ink transition group-hover:text-accent-deep md:text-lg">
+          {tool.name}
+        </h3>
+        <AccessBadge access={tool.access} />
+      </div>
+      <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-soft">
+        {tool.summary}
+      </p>
+    </div>
+  </div>
+
+  <span class="mt-auto inline-flex items-center gap-1 pt-4 text-sm text-accent">
+    详情
+    <span aria-hidden="true" class="transition group-hover:translate-x-0.5">→</span>
+  </span>
+</a>

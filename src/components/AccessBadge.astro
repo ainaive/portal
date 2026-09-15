@@ -1,0 +1,23 @@
+---
+import type { Tool } from '../lib/schema';
+import { accessLabel } from '../lib/labels';
+
+interface Props {
+  access: Tool['access'];
+  size?: 'sm' | 'md';
+}
+
+const { access, size = 'sm' } = Astro.props;
+---
+
+<span
+  class:list={[
+    'inline-flex items-center rounded-full font-medium tracking-wide',
+    size === 'sm' ? 'px-2 py-0.5 text-[0.65rem]' : 'px-2.5 py-1 text-xs',
+    access === 'web' && 'border border-accent/35 text-accent-deep',
+    access === 'client' && 'bg-paper-deep text-ink-soft',
+    access === 'api-key' && 'bg-access-key/15 text-access-key',
+  ]}
+>
+  {accessLabel[access]}
+</span>

@@ -1,53 +1,70 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCategories, getSite, getTools } from '../lib/tools';
+import { getCategoryTheme } from '../lib/theme';
+import { getSite, getToolsByCategory } from '../lib/tools';
 
 const site = getSite();
-const categories = getCategories();
-const tools = getTools();
+const groups = getToolsByCategory();
+const toolCount = groups.reduce((sum, group) => sum + group.tools.length, 0);
 ---
 
 <BaseLayout title="关于" description={`了解 ${site.name} 的定位与原则。`}>
-  <article class="mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16">
-    <p class="reveal text-xs font-medium tracking-[0.22em] text-accent uppercase">About</p>
+  <article class="mx-auto max-w-5xl px-5 py-14 md:px-8 md:py-20">
+    <p class="reveal text-xs font-medium tracking-[0.2em] text-accent uppercase">About</p>
     <h1 class="font-display reveal reveal-delay-1 mt-3 text-4xl tracking-tight text-ink md:text-5xl">
       关于{site.name}
     </h1>
-    <p class="reveal reveal-delay-2 mt-6 text-lg leading-relaxed text-ink-soft">
+    <p class="reveal reveal-delay-2 mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
       {site.name}（{site.nameEn}）是一套面向生态研发与办公的工具目录。我们把开发平台、持续集成、蓝区办公等常用能力放在同一处，方便团队发现、比较与接入。
     </p>
 
-    <section class="reveal reveal-delay-3 mt-14">
+    <section class="reveal reveal-delay-3 mt-16">
       <h2 class="font-display text-2xl text-ink">我们在意什么</h2>
-      <ul class="mt-6 space-y-5 text-base leading-relaxed text-ink-soft">
-        <li class="border-l-2 border-accent/50 pl-4">
-          <strong class="font-medium text-ink">可扫读</strong>
-          — 先看清分类与摘要，再决定是否深入详情。
+      <ul class="mt-8 grid gap-10 md:grid-cols-3">
+        <li>
+          <p class="font-display text-2xl tracking-tight text-ink">可扫读</p>
+          <p class="mt-3 text-base leading-relaxed text-ink-soft">
+            先看清分类与摘要，再决定是否深入详情。
+          </p>
         </li>
-        <li class="border-l-2 border-accent/50 pl-4">
-          <strong class="font-medium text-ink">可演进</strong>
-          — 第一阶段用仓库内 YAML 维护；字段结构已按后续后台管理预留。
+        <li>
+          <p class="font-display text-2xl tracking-tight text-ink">可演进</p>
+          <p class="mt-3 text-base leading-relaxed text-ink-soft">
+            第一阶段用仓库内 YAML 维护；字段结构已按后续后台管理预留。
+          </p>
         </li>
-        <li class="border-l-2 border-accent/50 pl-4">
-          <strong class="font-medium text-ink">务实混合</strong>
-          — 既有开发与持续集成能力，也有蓝区办公工具，服务真实作业链路。
+        <li>
+          <p class="font-display text-2xl tracking-tight text-ink">务实混合</p>
+          <p class="mt-3 text-base leading-relaxed text-ink-soft">
+            既有开发与持续集成能力，也有蓝区办公工具，服务真实作业链路。
+          </p>
         </li>
       </ul>
     </section>
 
-    <section class="mt-14 rounded-xl border border-line bg-surface/70 p-6 md:p-8">
+    <section class="mt-20">
       <h2 class="font-display text-2xl text-ink">当前目录</h2>
       <p class="mt-3 text-sm text-muted">
-        现收录 {tools.length} 个工具，分布在 {categories.length} 个分类中。
+        现收录 {toolCount} 个工具，分布在 {groups.length} 个分类中。
       </p>
-      <ul class="mt-6 grid gap-3 sm:grid-cols-2">
+      <ul class="mt-8 divide-y divide-line/80 border-y border-line/80">
         {
-          categories.map((category) => (
-            <li class="rounded-lg border border-line/80 bg-paper/50 px-4 py-3">
-              <a href={`/#${category.id}`} class="font-medium text-ink no-underline hover:text-accent-deep">
-                {category.name}
+          groups.map(({ category, tools }) => (
+            <li>
+              <a
+                href={`/#${category.id}`}
+                class="group flex flex-col gap-1 py-5 no-underline sm:flex-row sm:items-baseline sm:justify-between sm:gap-8"
+              >
+                <span class="inline-flex items-center gap-2 font-display text-xl text-ink transition group-hover:text-accent-deep">
+                  <span
+                    class:list={['h-1.5 w-1.5 rounded-full', getCategoryTheme(category.id).dot]}
+                    aria-hidden="true"
+                  />
+                  {category.name}
+                  <span class="font-sans text-sm text-muted">{tools.length}</span>
+                </span>
+                <span class="max-w-md text-sm leading-relaxed text-muted">{category.description}</span>
               </a>
-              <p class="mt-1 text-sm text-muted">{category.description}</p>
             </li>
           ))
         }

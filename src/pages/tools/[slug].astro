@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { accessLabel } from '../../lib/labels';
+import AccessBadge from '../../components/AccessBadge.astro';
+import ToolCard from '../../components/ToolCard.astro';
 import { getCategories, getToolBySlug, getTools } from '../../lib/tools';
 
 export function getStaticPaths() {
@@ -17,92 +18,137 @@ if (!tool) {
 }
 
 const category = getCategories().find((item) => item.id === tool.category);
+const related = getTools()
+  .filter((item) => item.category === tool.category && item.slug !== tool.slug)
+  .slice(0, 3);
 const linkEntries = [
   tool.links.website ? { label: '打开', href: tool.links.website } : null,
   tool.links.github ? { label: 'GitHub', href: tool.links.github } : null,
   tool.links.docs ? { label: '文档', href: tool.links.docs } : null,
 ].filter(Boolean) as { label: string; href: string }[];
+const primaryLink = linkEntries[0];
+const secondaryLinks = linkEntries.slice(1);
 ---
 
 <BaseLayout title={tool.name} description={tool.summary}>
-  <article class="mx-auto max-w-3xl px-5 py-12 md:px-8 md:py-16">
-    <p class="reveal text-sm text-muted">
-      <a href="/" class="no-underline hover:text-accent-deep">工具目录</a>
-      <span class="mx-2 opacity-50">/</span>
-      {
-        category && (
-          <a href={`/#${category.id}`} class="no-underline hover:text-accent-deep">
-            {category.name}
-          </a>
-        )
-      }
-    </p>
+  <article class="mx-auto max-w-5xl px-5 py-12 md:px-8 md:py-16">
+    <div class="grid gap-12 lg:grid-cols-[minmax(0,1fr)_16.5rem] lg:items-start">
+      <div>
+        <p class="reveal text-sm text-muted">
+          <a href="/" class="no-underline hover:text-accent-deep">工具目录</a>
+          <span class="mx-2 opacity-50">/</span>
+          {
+            category && (
+              <a href={`/#${category.id}`} class="no-underline hover:text-accent-deep">
+                {category.name}
+              </a>
+            )
+          }
+        </p>
 
-    <div class="reveal reveal-delay-1 mt-6 flex flex-wrap items-center gap-3">
-      <h1 class="font-display text-4xl tracking-tight text-ink md:text-5xl">{tool.name}</h1>
-      <span
-        class:list={[
-          'rounded-full px-2.5 py-1 text-xs font-medium',
-          tool.access === 'web' && 'bg-accent-soft text-accent-deep',
-          tool.access === 'client' && 'bg-paper-deep text-ink-soft',
-          tool.access === 'api-key' && 'bg-[#e8f0ec] text-accent-deep',
-        ]}
-      >
-        {accessLabel[tool.access]}
-      </span>
-    </div>
+        <div class="reveal reveal-delay-1 mt-6 flex flex-wrap items-center gap-3">
+          <h1 class="font-display text-4xl tracking-tight text-ink md:text-5xl">{tool.name}</h1>
+          <AccessBadge access={tool.access} size="md" />
+        </div>
 
-    <p class="reveal reveal-delay-2 mt-5 text-lg leading-relaxed text-ink-soft">{tool.summary}</p>
+        <p class="reveal reveal-delay-2 mt-5 text-lg leading-relaxed text-ink-soft">{tool.summary}</p>
 
-    {
-      tool.tags.length > 0 && (
-        <ul class="reveal reveal-delay-2 mt-5 flex flex-wrap gap-2">
-          {tool.tags.map((tag) => (
-            <li class="rounded-full border border-line bg-surface px-3 py-1 text-xs text-muted">{tag}</li>
-          ))}
-        </ul>
-      )
-    }
+        {
+          tool.tags.length > 0 && (
+            <ul class="reveal reveal-delay-2 mt-5 flex flex-wrap gap-x-3 gap-y-1 text-sm text-muted">
+              {tool.tags.map((tag) => (
+                <li>{tag}</li>
+              ))}
+            </ul>
+          )
+        }
 
-    <section class="reveal reveal-delay-3 mt-12 border-t border-line pt-10">
-      <h2 class="font-display text-2xl text-ink">介绍</h2>
-      <p class="mt-4 text-base leading-relaxed text-ink-soft">{tool.description}</p>
-    </section>
-
-    {
-      tool.highlights.length > 0 && (
-        <section class="mt-12">
-          <h2 class="font-display text-2xl text-ink">要点</h2>
-          <ul class="mt-5 space-y-3">
-            {tool.highlights.map((item) => (
-              <li class="flex gap-3 text-ink-soft">
-                <span class="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" aria-hidden="true" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
-
-    {
-      linkEntries.length > 0 && (
-        <section class="mt-12 rounded-xl border border-line bg-surface/70 p-6">
-          <h2 class="font-display text-xl text-ink">链接</h2>
-          <ul class="mt-4 flex flex-wrap gap-3">
-            {linkEntries.map((link) => (
-              <li>
+        {
+          primaryLink && (
+            <div class="reveal reveal-delay-2 mt-6 flex flex-col gap-3 sm:flex-row lg:hidden">
+              <a
+                href={primaryLink.href}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white no-underline transition hover:bg-accent-deep"
+              >
+                {primaryLink.label}
+              </a>
+              {secondaryLinks.map((link) => (
                 <a
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  class="inline-flex rounded-full border border-accent/30 bg-accent-soft/50 px-4 py-2 text-sm font-medium text-accent-deep no-underline transition hover:bg-accent-soft"
+                  class="inline-flex items-center justify-center rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink no-underline transition hover:border-accent/40 hover:text-accent-deep"
                 >
                   {link.label}
                 </a>
-              </li>
+              ))}
+            </div>
+          )
+        }
+
+        <section class="reveal reveal-delay-3 mt-12 border-t border-line pt-10">
+          <h2 class="font-display text-2xl text-ink">介绍</h2>
+          <p class="mt-4 text-base leading-relaxed text-ink-soft">{tool.description}</p>
+        </section>
+
+        {
+          tool.highlights.length > 0 && (
+            <section class="mt-12">
+              <h2 class="font-display text-2xl text-ink">要点</h2>
+              <ol class="mt-6 space-y-5">
+                {tool.highlights.map((item, index) => (
+                  <li class="flex gap-4 text-ink-soft">
+                    <span class="font-display w-8 shrink-0 text-lg leading-7 text-accent">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                    <span class="leading-7">{item}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )
+        }
+      </div>
+
+      {
+        primaryLink && (
+          <aside class="reveal reveal-delay-2 hidden lg:sticky lg:top-24 lg:block">
+            <div class="flex flex-col gap-3">
+              <a
+                href={primaryLink.href}
+                target="_blank"
+                rel="noreferrer"
+                class="inline-flex items-center justify-center rounded-full bg-accent px-5 py-2.5 text-sm font-medium text-white no-underline transition hover:bg-accent-deep"
+              >
+                {primaryLink.label}
+              </a>
+              {secondaryLinks.map((link) => (
+                <a
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  class="inline-flex items-center justify-center rounded-full border border-line px-5 py-2.5 text-sm font-medium text-ink no-underline transition hover:border-accent/40 hover:text-accent-deep"
+                >
+                  {link.label}
+                </a>
+              ))}
+            </div>
+          </aside>
+        )
+      }
+    </div>
+
+    {
+      related.length > 0 && (
+        <section class="mt-20 border-t border-line pt-12">
+          <h2 class="font-display text-2xl text-ink">同分类其他工具</h2>
+          <div class="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+            {related.map((item) => (
+              <ToolCard tool={item} />
             ))}
-          </ul>
+          </div>
         </section>
       )
     }

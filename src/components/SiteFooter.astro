@@ -1,16 +1,33 @@
 ---
-import { getSite } from '../lib/tools';
+import { getCategories, getSite } from '../lib/tools';
 
 const site = getSite();
+const categories = getCategories();
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-24 border-t border-line/80">
-  <div class="mx-auto flex max-w-6xl flex-col gap-3 px-5 py-10 text-sm text-muted md:flex-row md:items-end md:justify-between md:px-8">
+<footer class="mt-28 border-t border-line/80">
+  <div class="mx-auto flex max-w-6xl flex-col gap-8 px-5 py-10 md:flex-row md:items-end md:justify-between md:px-8">
     <div>
       <p class="font-display text-lg text-ink">{site.name}</p>
-      <p class="mt-1 tracking-wide">{site.nameEn}</p>
+      <p class="mt-1 text-sm tracking-wide text-muted">{site.nameEn}</p>
+      <p class="mt-4 text-sm text-muted">© {year} · 静态目录站 · 数据来自仓库 YAML</p>
     </div>
-    <p>© {year} · 静态目录站 · 数据来自仓库 YAML</p>
+    <nav aria-label="页脚导航">
+      <ul class="flex flex-wrap gap-x-5 gap-y-2 text-sm">
+        {
+          categories.map((category) => (
+            <li>
+              <a href={`/#${category.id}`} class="text-ink-soft no-underline hover:text-accent-deep">
+                {category.name}
+              </a>
+            </li>
+          ))
+        }
+        <li>
+          <a href="/about" class="text-ink-soft no-underline hover:text-accent-deep">关于</a>
+        </li>
+      </ul>
+    </nav>
   </div>
 </footer>
