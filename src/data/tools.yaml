@@ -1,313 +1,134 @@
-- slug: forge-cli
-  name: Forge CLI
-  summary: 统一的项目脚手架与本地开发入口。
-  description: Forge CLI 帮助团队用一套命令初始化服务、生成模块模板，并保持仓库约定一致。适合多仓库与单体仓库并存的团队。
-  category: development
-  tags: [CLI, 脚手架]
-  status: stable
+- slug: ai-maas
+  name: AI MAAS服务
+  summary: 提供AI MAAS服务
+  description: 提供公司统一采购的MAAS服务，包括百炼、智谱、火山引擎、月之暗面、稀宇科技、腾讯云、百度千帆等
+  category: platform
+  access: api-key
   links:
-    website: https://example.com/forge-cli
-    github: https://github.com/example/forge-cli
-    docs: https://example.com/forge-cli/docs
-  highlights:
-    - 交互式生成服务与库模板
-    - 内置代码规范与目录约定检查
-    - 可扩展插件机制
+    website: http://maas.ipd.huawei.com/ai-admin/
 
-- slug: lens-debugger
-  name: Lens Debugger
-  summary: 面向微服务的本地调试与流量观察面板。
-  description: Lens Debugger 把本地进程、依赖服务与请求轨迹放在同一视图里，缩短「改一行代码却要找半天链路」的时间。
-  category: development
-  tags: [调试, 可观测]
-  status: beta
+- slug: trae
+  name: TRAE
+  summary: 字节旗下 AI IDE 产品
+  description: AI 原生 IDE，可凭自然语言生成、调试代码，搭载智能体，一站式完成软件开发交付。
+  category: platform
+  access: client
   links:
-    website: https://example.com/lens
-    github: https://github.com/example/lens-debugger
-  highlights:
-    - 请求时间线与依赖拓扑
-    - 一键附加到本地进程
-    - 导出可复现的调试会话
+    website: https://console.enterprise.trae.cn/login?to=%2Fpersonal%2Fusage
 
-- slug: schema-kit
-  name: Schema Kit
-  summary: API 契约设计、校验与客户端生成套件。
-  description: 以 OpenAPI / JSON Schema 为源，生成类型安全客户端与服务端校验中间件，减少接口漂移。
-  category: development
-  tags: [API, 契约]
-  status: stable
+- slug: one-stop-workbench
+  name: 一站式工作台
+  summary: 生态社区开发一站式工作台
+  description: 打造一站式开发平台和社区，一键创建开发环境、支持Ascend C、PyPTO、Triton等多样化算子开发能力及调试调优仿真等能力，提升用户作业体验
+  category: platform
+  access: web
   links:
-    github: https://github.com/example/schema-kit
-    docs: https://example.com/schema-kit
-  highlights:
-    - 多语言客户端生成
-    - CI 中契约破坏检测
-    - 与 Mock 服务联动
+    website: https://gitcode.com/org/cann/cannlab
 
-- slug: workspace-sync
-  name: Workspace Sync
-  summary: 多仓库依赖与本地联调的工作区同步器。
-  description: 当服务拆分在多个仓库时，Workspace Sync 负责链接本地包、对齐版本并一键拉起联调环境。
-  category: development
-  tags: [工作区, 联调]
-  status: stable
-  links:
-    website: https://example.com/workspace-sync
-    github: https://github.com/example/workspace-sync
-  highlights:
-    - 跨仓本地链接
-    - 依赖图可视化
-    - 环境变量模板同步
-
-- slug: codemap
-  name: CodeMap
-  summary: 代码库结构与影响面分析。
-  description: CodeMap 扫描仓库生成模块依赖图，变更时提示可能影响的服务与测试范围，辅助 Code Review。
-  category: development
-  tags: [分析, 架构]
-  status: beta
-  links:
-    github: https://github.com/example/codemap
-  highlights:
-    - 模块与包依赖图
-    - PR 影响面注释
-    - 导出架构快照
-
-- slug: proto-studio
-  name: Proto Studio
-  summary: 协议缓冲与 RPC 定义的可视化编辑器。
-  description: 为 gRPC / Connect 团队提供 Proto 编辑、兼容性检查与示例请求生成能力。
-  category: development
-  tags: [RPC, Proto]
-  status: experimental
-  links:
-    website: https://example.com/proto-studio
-    docs: https://example.com/proto-studio/docs
-  highlights:
-    - 可视化 message 编辑
-    - 向后兼容规则检查
-    - 生成调试请求样例
-
-- slug: assertly
-  name: Assertly
-  summary: 表达力更好的断言与测试数据工厂。
-  description: Assertly 提供可读的断言 DSL 与可组合的 fixture 工厂，让失败信息直接指向业务语义。
-  category: testing
-  tags: [单测, Fixture]
-  status: stable
-  links:
-    github: https://github.com/example/assertly
-    docs: https://example.com/assertly
-  highlights:
-    - 语义化断言消息
-    - 组合式测试数据工厂
-    - 多测试框架适配
-
-- slug: voyage-e2e
-  name: Voyage E2E
-  summary: 稳定优先的端到端测试运行器。
-  description: Voyage 强调选择器稳定性、并行分片与失败录屏，适合 UI 回归与关键路径守护。
-  category: testing
-  tags: [E2E, UI]
-  status: stable
-  links:
-    website: https://example.com/voyage
-    github: https://github.com/example/voyage-e2e
-  highlights:
-    - 智能等待与重试策略
-    - 失败轨迹与截图归档
-    - CI 分片调度
-
-- slug: contract-guard
-  name: Contract Guard
-  summary: 消费者驱动的契约测试与兼容门禁。
-  description: 在流水线中验证服务间契约，阻止不兼容变更进入主干。
-  category: testing
-  tags: [契约, 门禁]
-  status: beta
-  links:
-    github: https://github.com/example/contract-guard
-    docs: https://example.com/contract-guard
-  highlights:
-    - 消费者契约收集
-    - Provider 验证报告
-    - 与 Schema Kit 集成
-
-- slug: loadtide
-  name: LoadTide
-  summary: 场景化的压力与稳定性测试工具。
-  description: 用声明式场景描述流量模型，输出延迟分位、错误预算消耗与瓶颈提示。
-  category: testing
-  tags: [压测, 稳定性]
-  status: stable
-  links:
-    website: https://example.com/loadtide
-    github: https://github.com/example/loadtide
-  highlights:
-    - 阶梯与脉冲流量模型
-    - SLO 错误预算视图
-    - 可复现的压测报告
-
-- slug: pipeline-craft
-  name: Pipeline Craft
-  summary: 可组合的 CI 流水线定义与本地回放。
-  description: 用模块化步骤描述构建与测试流水线，支持本地回放同一套定义，减少「只在 CI 挂」的问题。
+- slug: atomgit
+  name: AtomGit
+  summary: 生态社区代码仓
+  description: AtomGit 是一款由 CSDN 开发者社区 与 华为云 CodeArts 联合打造的新一代开源代码托管平台。作为开发者的全能助手，AtomGit 集代码托管、协同研发、项目管理与开源运营支持于一体，为个人开发者、团队和企业提供高效、安全、智能的解决方案。
   category: cicd
-  tags: [流水线, 构建]
-  status: stable
+  access: web
   links:
-    website: https://example.com/pipeline-craft
-    github: https://github.com/example/pipeline-craft
-    docs: https://example.com/pipeline-craft/docs
-  highlights:
-    - 声明式可组合步骤
-    - 本地与远端同一配置
-    - 缓存与产物策略模板
+    website: https://docs.gitcode.com/docs/start
 
-- slug: cacheforge
-  name: CacheForge
-  summary: 构建缓存与远程执行加速层。
-  description: 为编译与测试任务提供内容寻址缓存与远程执行，缩短主干与 PR 流水线时间。
+- slug: pipeline
+  name: Pipeline
+  summary: 生态社区流水线
+  description: AtomGit Action 是 AtomGit 平台原生的自动化流水线引擎，采用 Pipeline as Code 理念，让你通过在代码仓库中编写 YAML 配置文件来定义、触发和执行软件交付流程。流水线配置与业务代码共仓存放、版本同溯，遵循 Everything as Code 的 GitOps 实践。
   category: cicd
-  tags: [构建, 缓存]
-  status: beta
+  access: web
   links:
-    github: https://github.com/example/cacheforge
-  highlights:
-    - 远程缓存命中分析
-    - 任务级远程执行
-    - 与主流 CI 集成
+    website: https://docs.gitcode.com/docs/help/home/org_project/pipeline/overview
 
-- slug: artifact-bay
-  name: Artifact Bay
-  summary: 统一的构建产物存储与签名校验。
-  description: Artifact Bay 管理镜像、包与二进制产物的上传、签名与拉取策略，作为流水线与发布之间的枢纽。
+- slug: artifact
+  name: Artifact
+  summary: 生态社区流水线artifact服务
+  description: AtomGit Action 的制品（Artifacts）机制，用于跨 Job 传递构建产物和加速依赖安装。
   category: cicd
-  tags: [制品, 签名]
-  status: stable
+  access: web
   links:
-    website: https://example.com/artifact-bay
-    docs: https://example.com/artifact-bay/docs
-  highlights:
-    - 多格式制品仓库
-    - 签名与 SBOM 附着
-    - 保留策略与审计日志
+    website: https://docs.gitcode.com/docs/help/home/org_project/pipeline/core-concepts/artifacts-and-cache
 
-- slug: gatekeeper-ci
-  name: Gatekeeper CI
-  summary: 质量门禁策略引擎。
-  description: 把覆盖率、漏洞扫描、契约与审批规则收敛为可版本化的门禁策略，应用到各流水线。
+- slug: mirror
+  name: Mirror
+  summary: 华为云镜像服务
+  description: 支持容器镜像全生命周期管理的服务，提供简单易用、安全可靠的镜像管理功能，帮助用户快速部署容器化服务。
   category: cicd
-  tags: [门禁, 策略]
-  status: stable
+  access: web
   links:
-    github: https://github.com/example/gatekeeper-ci
-  highlights:
-    - 策略即代码
-    - 按仓库/环境差异化规则
-    - 清晰的阻断原因报告
+    website: https://www.huaweicloud.com/product/swr.html
 
-- slug: launchpad
-  name: Launchpad
-  summary: 灰度发布与流量切换控制台。
-  description: Launchpad 管理金丝雀、蓝绿与按比例切流，并把观测指标与回滚动作绑在同一发布单上。
-  category: release
-  tags: [灰度, 切流]
-  status: stable
+- slug: welink-pc
+  name: WeLinkPC
+  summary: WeLink(WeLink Desktop)华为人的数字化协作平台。
+  description: WeLink是基于华为数字化办公实践，融合消息、会议、邮件等功能，全面连接团队、业务，是属于华为人的数字化协作平台。
+  category: office
+  access: client
   links:
-    website: https://example.com/launchpad
-    github: https://github.com/example/launchpad
-  highlights:
-    - 金丝雀与蓝绿模板
-    - 指标阈值自动回滚
-    - 发布单审计轨迹
+    website: https://his.huawei.com/csop/#/ToolInfo?samType=his&toolId=1635194969880788992
 
-- slug: semver-orbit
-  name: Semver Orbit
-  summary: 版本号、Changelog 与标签自动化。
-  description: 根据提交约定生成版本与变更说明，并与制品仓库、发布渠道联动。
-  category: release
-  tags: [版本, Changelog]
-  status: stable
+- slug: welink-meeting
+  name: WeLinkmeeting
+  summary: 为华为员工之间的内部沟通，以及华为员工与客户/供应商交流，面试等对外沟通，提供视频会议服务。
+  description: 为华为员工之间的内部沟通，以及华为员工与客户/供应商交流，面试等对外沟通，提供视频会议服务，支持PC、WeLink移动瑞等多终端接入，适用于展会、展厅、展览展示场景（注：不支持桌面云）。
+  category: office
+  access: client
   links:
-    github: https://github.com/example/semver-orbit
-    docs: https://example.com/semver-orbit
-  highlights:
-    - Conventional Commits 解析
-    - 多包 monorepo 版本编排
-    - 发布说明模板
+    website: https://his.huawei.com/csop/#/ToolInfo?samType=his&toolId=1727965219779563522
 
-- slug: rollout-notes
-  name: Rollout Notes
-  summary: 面向团队的发布说明与沟通中心。
-  description: 汇总变更、风险与操作清单，生成对内对外的发布公告，减少口头同步遗漏。
-  category: release
-  tags: [沟通, 发布]
-  status: beta
+- slug: eshare
+  name: eShare
+  summary: 公司局会议室使用的通过在便携机端输入PIN码，投影到大屏端的无线投影工具软件
+  description: eShare无线投屏：支持将PC的桌面投屏到大屏，并支持触摸回传控制投影端的屏幕。
+  category: office
+  access: client
   links:
-    website: https://example.com/rollout-notes
-  highlights:
-    - 从 PR 与工单汇总结论
-    - 多渠道公告分发
-    - 发布检查清单
+    website: https://his.huawei.com/csop/#/ToolInfo?samType=his&toolId=1570709573306679296
 
-- slug: promptforge
-  name: PromptForge
-  summary: Prompt 版本管理与评测工作台。
-  description: 把 Prompt 当产品资产管理：版本、对照实验、回归集与上线审批在同一处完成。
-  category: ai
-  tags: [Prompt, 评测]
-  status: stable
+- slug: email-tools
+  name: EmailTools
+  summary: 邮件小助手
+  description: outlook插件类工具，必须配合outlook使用，提升其使用体验。
+  category: office
+  access: client
   links:
-    website: https://example.com/promptforge
-    github: https://github.com/example/promptforge
-    docs: https://example.com/promptforge/docs
-  highlights:
-    - Prompt 版本与差异对比
-    - 数据集驱动回归评测
-    - 上线审批流
+    website: https://his.huawei.com/csop/#/ToolInfo?samType=his&toolId=1787737250649399297
 
-- slug: agent-rail
-  name: Agent Rail
-  summary: Agent 编排、工具调用与轨迹追踪。
-  description: 为多步骤 Agent 提供可观察的执行轨、工具权限边界与失败重放能力。
-  category: ai
-  tags: [Agent, 追踪]
-  status: beta
+- slug: xgate
+  name: xGate（含安全组件）
+  summary: xGate接入安全
+  description: 随时随地，安全接入，高效办公。
+  category: office
+  access: client
   links:
-    github: https://github.com/example/agent-rail
-    docs: https://example.com/agent-rail
-  highlights:
-    - 工具调用权限策略
-    - 执行轨迹回放
-    - 与评测集联动
+    website: https://help.xgate.his.huawei.com/userportal_ui/#/views/home
 
-- slug: model-router
-  name: Model Router
-  summary: 多模型路由、限流与成本护栏。
-  description: 按任务类型、延迟与预算把请求路由到合适模型，并输出用量与质量看板。
-  category: ai
-  tags: [路由, 成本]
-  status: stable
+- slug: hisec-endpoint
+  name: HiSec Endpoint智能终端安全系统
+  summary: HiSec Endpoint智能终端安全系统是一款全面的终端安全防护产品。
+  description: HiSec Endpoint智能终端安全系统是一款全面的终端安全防护产品。通过部署在企业终端的客户端软件，实时感知终端异常行为，多维检测识别潜在安全威胁，自动处置威胁事件，智能溯源入侵路径，一键勒索加密文件回滚，帮助企业保护核心终端资产安全。经权威三方机构检测，已知勒索检出率100%，可有效抵御勒索威胁。
+  category: office
+  access: client
   links:
-    website: https://example.com/model-router
-    github: https://github.com/example/model-router
-  highlights:
-    - 策略化模型选择
-    - 配额与成本告警
-    - 降级与回退链路
+    website: https://his.huawei.com/csop/index.html#/ToolInfo?samType=his&toolId=2033725611233587202
 
-- slug: eval-bench
-  name: Eval Bench
-  summary: LLM 应用离线评测与对比基准。
-  description: 统一评测任务定义、裁判模型与人工抽检流程，方便在迭代间比较质量变化。
-  category: ai
-  tags: [评测, 基准]
-  status: experimental
+- slug: idesk
+  name: iDesk
+  summary: 汇集华为员工都在用的工具软件
+  description: 华为终端管理软件，为华为的终端设备提供统一的全生命周期集中管理，让用户使用更高效、IT管理更简单。功能包括：设备登记，应用商店，资产管理，软件合规，软件分发，桌面服务，个性化策略，桌面标准。
+  category: office
+  access: client
   links:
-    github: https://github.com/example/eval-bench
-    docs: https://example.com/eval-bench
-  highlights:
-    - 可复现评测运行
-    - 自动裁判 + 人工抽检
-    - 版本间对比报告
+    website: https://his.huawei.com/csop/index.html#/ToolInfo?samType=his&toolId=1787803578575937537
+
+- slug: jdc
+  name: JDC
+  summary: JDC 产品管理服务
+  description: 管理需求、特性等业务对象，支撑需求管理、产品规划、可信产品定义及生命周期规划相关的业务，提供一站式产品管理作业平台。
+  category: other
+  access: web
+  links:
+    website: https://jdc.huawei.com

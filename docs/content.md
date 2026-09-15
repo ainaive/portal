@@ -33,14 +33,10 @@ bun run build
   name: My New Tool
   summary: 一句话说明它解决什么问题。
   description: 稍长的介绍，会出现在详情页「介绍」区块。
-  category: development
-  tags: [示例]
-  status: beta
+  category: platform
+  access: web
   links:
-    github: https://github.com/example/my-new-tool
-  highlights:
-    - 要点一
-    - 要点二
+    website: https://example.com/my-new-tool
 ```
 
 保存后详情页地址为：`/tools/my-new-tool`。
@@ -59,14 +55,15 @@ bun run build
 
 | 字段 | 必填 | 说明 |
 |------|------|------|
-| `slug` | 是 | URL 段，匹配 `^[a-z0-9]+(?:-[a-z0-9]+)*$`，如 `forge-cli` |
+| `slug` | 是 | URL 段，匹配 `^[a-z0-9]+(?:-[a-z0-9]+)*$`，如 `ai-maas` |
 | `name` | 是 | 展示名称 |
 | `summary` | 是 | 目录列表上的一句话摘要 |
 | `description` | 是 | 详情页正文 |
 | `category` | 是 | 分类 id，必须是 `categories.yaml` 里已有的 `id` |
+| `access` | 是 | 使用方式：`api-key` \| `client` \| `web`（界面显示为「API Key / 客户端 / Web」） |
 | `tags` | 否 | 字符串数组；默认 `[]` |
-| `status` | 否 | `stable` \| `beta` \| `experimental`；默认 `stable`（界面显示为「稳定 / Beta / 实验」） |
-| `links.website` | 否 | 官网，须为合法 URL |
+| `status` | 否 | `stable` \| `beta` \| `experimental`；默认 `stable`（当前界面不展示状态徽章） |
+| `links.website` | 否 | 入口链接，须为合法 URL；详情页按钮文案为「打开」 |
 | `links.github` | 否 | 代码仓库 URL |
 | `links.docs` | 否 | 文档 URL |
 | `highlights` | 否 | 详情页「要点」列表；默认 `[]` |
@@ -78,9 +75,9 @@ bun run build
 编辑 [`src/data/categories.yaml`](../src/data/categories.yaml)：
 
 ```yaml
-- id: development
-  name: 软件开发
-  description: 编码、脚手架、API 与日常开发效率工具。
+- id: platform
+  name: 开发平台
+  description: 公司统一的 AI 开发与算子开发平台，覆盖模型服务、IDE 与一站式工作台。
 ```
 
 | 字段 | 说明 |
@@ -91,11 +88,10 @@ bun run build
 
 当前内置分类（顺序即导航与首页顺序）：
 
-1. `development` — 软件开发  
-2. `testing` — 软件测试  
-3. `cicd` — CI/CD（含构建）  
-4. `release` — 发布  
-5. `ai` — AI 工程  
+1. `platform` — 开发平台  
+2. `cicd` — 持续集成  
+3. `office` — 蓝区办公  
+4. `other` — 其他  
 
 ### 新增分类
 

@@ -1,6 +1,6 @@
 # 生态工具链 Portal
 
-中文静态官网：以工具目录为主，展示软件开发、测试、CI/CD、发布与 AI 工程相关工具。
+中文静态官网：以工具目录为主，展示开发平台、持续集成与蓝区办公相关工具。
 
 - **品牌**：生态工具链 / Ecosystem Tools  
 - **技术栈**：Astro · TypeScript · Tailwind CSS · Bun  
@@ -30,7 +30,7 @@ bun run preview  # 预览静态产物
 | [`src/data/categories.yaml`](src/data/categories.yaml) | 分类顺序与文案 |
 | [`src/data/tools.yaml`](src/data/tools.yaml) | 工具条目 |
 
-当前分类顺序：软件开发 → 软件测试 → CI/CD（含构建）→ 发布 → AI 工程。
+当前分类顺序：开发平台 → 持续集成 → 蓝区办公 → 其他。
 
 ## 页面
 

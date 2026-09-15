@@ -1,6 +1,6 @@
 ---
 import type { Tool } from '../lib/schema';
-import { statusLabel } from '../lib/labels';
+import { accessLabel } from '../lib/labels';
 
 interface Props {
   tool: Tool;
@@ -21,12 +21,12 @@ const { tool } = Astro.props;
       <span
         class:list={[
           'rounded-full px-2 py-0.5 text-[0.65rem] font-medium tracking-wide',
-          tool.status === 'stable' && 'bg-accent-soft text-accent-deep',
-          tool.status === 'beta' && 'bg-paper-deep text-ink-soft',
-          tool.status === 'experimental' && 'bg-[#f3e7d6] text-warn',
+          tool.access === 'web' && 'bg-accent-soft text-accent-deep',
+          tool.access === 'client' && 'bg-paper-deep text-ink-soft',
+          tool.access === 'api-key' && 'bg-[#e8f0ec] text-accent-deep',
         ]}
       >
-        {statusLabel[tool.status]}
+        {accessLabel[tool.access]}
       </span>
     </div>
     {

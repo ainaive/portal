@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { statusLabel } from '../../lib/labels';
+import { accessLabel } from '../../lib/labels';
 import { getCategories, getToolBySlug, getTools } from '../../lib/tools';
 
 export function getStaticPaths() {
@@ -18,7 +18,7 @@ if (!tool) {
 
 const category = getCategories().find((item) => item.id === tool.category);
 const linkEntries = [
-  tool.links.website ? { label: '官网', href: tool.links.website } : null,
+  tool.links.website ? { label: '打开', href: tool.links.website } : null,
   tool.links.github ? { label: 'GitHub', href: tool.links.github } : null,
   tool.links.docs ? { label: '文档', href: tool.links.docs } : null,
 ].filter(Boolean) as { label: string; href: string }[];
@@ -43,12 +43,12 @@ const linkEntries = [
       <span
         class:list={[
           'rounded-full px-2.5 py-1 text-xs font-medium',
-          tool.status === 'stable' && 'bg-accent-soft text-accent-deep',
-          tool.status === 'beta' && 'bg-paper-deep text-ink-soft',
-          tool.status === 'experimental' && 'bg-[#f3e7d6] text-warn',
+          tool.access === 'web' && 'bg-accent-soft text-accent-deep',
+          tool.access === 'client' && 'bg-paper-deep text-ink-soft',
+          tool.access === 'api-key' && 'bg-[#e8f0ec] text-accent-deep',
         ]}
       >
-        {statusLabel[tool.status]}
+        {accessLabel[tool.access]}
       </span>
     </div>
 

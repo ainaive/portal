@@ -20,12 +20,15 @@ export const toolLinksSchema = z.object({
   docs: z.string().url().optional(),
 });
 
+export const toolAccessSchema = z.enum(['api-key', 'client', 'web']);
+
 export const toolSchema = z.object({
   slug: z.string().regex(/^[a-z0-9]+(?:-[a-z0-9]+)*$/),
   name: z.string(),
   summary: z.string(),
   description: z.string(),
   category: z.string(),
+  access: toolAccessSchema,
   tags: z.array(z.string()).default([]),
   status: z.enum(['stable', 'beta', 'experimental']).default('stable'),
   links: toolLinksSchema.default({}),
